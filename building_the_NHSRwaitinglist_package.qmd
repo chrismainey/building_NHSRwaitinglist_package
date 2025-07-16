@@ -1,0 +1,405 @@
+---
+format:
+  revealjs:
+    transition: slide
+    code-block-bg: true
+    highlight-style: github
+    render-df: kable
+    slide-number: true
+include-in-header:
+  - text: |
+      <style>
+      .panel-tabset > .nav-item {
+        font-size: 1rem
+      }
+      </style>
+execute: 
+  echo: true
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| include: false
+library(tidyverse)
+```
+
+<section>
+  <center><br>
+  <h1>Building the NHSRwaitinglist package</h1>
+  <br>
+  <p>Chris Mainey</p>
+  <p>Email: <a href="mailto:c.mainey1@nhs.net">c.mainey1@nhs.net</a></p>
+  </center>
+</section>
+
+
+## Overview
+
+
++ Why build a package / library?
+
++ How to build one in R
+
++ What is NHSRwaitinglist?
+
++ Quirks along the way
+
+_I will jump around a bit between slides, IDE, and GitHub_
+
+
+## Why build a package?
+
+___When you want to share code so it is reused by others___
+
+::: {.incremental}
+
+- Easier for regular users, not just developers
+- Include documentation, and better
+
+::: 
+
+## Building Packages in R
+
+https://r-pkgs.org/
+
+
+#### Key steps:
+
++ Build your code into functions
++ Document (using `ROxygen2`)
++ Build and test
+
+
+## Essential parts of package
+
+1. Your code in functions in `R/my_function.R`
+2. Documentation of each function in `man/my_function.Rd`
+3. DESCRIPTION file
+4. NAMESPACE file
+
+## 1. Your code in functions (1)
+
+Function take generic inputs, perform task on them, and often give an output.
+
+```{r}
+#| label: vector_setup
+my_vector <- c(4,12,15,7,8,12)
+```
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+#### You have code like this:
+```{r orig2}
+(my_vector + 2.5) / 50 
+```
+
+:::
+
+::: {.column width="50%"}
+
+#### Turn it into a function:
+```{r asfunc2}
+#| echo: true
+my_function <- 
+    function(vect) {
+        (vect + 2.5) / 50
+    }
+
+my_function(my_vector)
+```
+
+:::
+
+::::
+
+
+## 1. Your code in functions (2)
+
+:::: {.columns}
+::: {.column width="50%"}
+
+#### Function has:
+
+ + A name (`my_function`)
+ 
+ + An input (`vect`)
+ 
+ + A return value (by default returns last line, but can be explicit with `return()`)
+
+:::
+
+::: {.column width="50%"}
+
+<br><br>
+```{r asfunc4, eval=FALSE}
+my_function <- 
+    function(vect){
+        (vect + 2.5) / 50
+    }
+```
+
+:::
+
+::::
+
+
+__Usually they are longer and more complex, but this is the building block__
+
+## 2. Documentation
+
+For a user, each function should be clearly explained.
+
+
+:::: {.columns}
+
+::: {.column width="40%"}
+<br>
+
++ Standard, markdown-style format: `.Rd`
++ Can write directly but using tools is easier
++ `ROxygen2` tags are translated into `.Rd` files
+:::
+
+
+::: {.column width="60%"}
+
+::: {.panel-tabset .nav-pills}
+
+## Help file
+
+![](./assets/img/helpfile.png)
+
+## `ROxygen2` tags
+
+![](./assets/img/roxygentags.png)
+
+:::
+
+:::
+
+::::
+
+## 3. DESCRIPTION file
+
+This is the 'front door' for the package.
+
+
+:::: {.columns}
+
+::: {.column width="40%"}
+<br>
+
++ What it is and does
++ Links to GitHub and website
++ Authors
++ Dependencies
+
+:::
+
+::: {.column width="60%"}
+
+::: {.panel-tabset .nav-pills}
+
+## DESCRIPTION
+
+![](./assets/img/description.png)
+
+## CRAN
+
+![](./assets/img/cran.png)
+
+:::
+
+:::
+
+::::
+
+## 4. NAMESPACE file
+
+This is trickier...
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
++ List what functions are available for use / other packages to call
+
++ Imports what 
+:::
+
+::: {.column width="50%"}
+![](./assets/img/namespace.png)
+:::
+
+
+
+::::
+
+## Building the package
+
+To wrap it all up (on Windows), you need to install [RTools](https://cran.r-project.org/bin/windows/Rtools/).
+
++ Build the package, using `devtools` or `pkgbuild`
+
++ Run automated checks (required for CRAN)
+
++ Release!
+  + Via a source control tool e.g. GitHub
+  + Via a package repository e.g. CRAN, or Bioconductor
+  
+
+## NHSRwaitinglist
+
+`NHSRwaitinglist` is an R package implementing the waiting list management approach described in the paper __Understanding Waiting Lists Pressures__ by _Fong et al._ (2022).
+
++ Paper: [medR$\chi$iv](https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1.full)
+
++ Package: [CRAN]([https://cran.r-project.org/web/packages/NHSRwaitinglist/index.html)
+
++ Source Code: [GitHub](https://github.com/nhs-r-community/NHSRwaitinglist)
+
++ Package documentation website: [pkgdown via GitHub pages](https://nhs-r-community.github.io/NHSRwaitinglist/)
+
+## Aims
+
+To apply queuing theory methods to waiting list data for NHS use.
+Aiming to inform queue management with data and scientific theory, including:
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
++ Waiting list pressures
+
++ Target queue sizes / waiting times
+
++ Target or relief capacity
+
++ Simple simulation
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-width: 5
+# exponential density data
+distributions_df <- tibble::tibble(
+  x = seq(0, 65, length.out = 1000),
+  `6` = dexp(x, 1/6),
+  `7.12` = dexp(x, 1/7.12),
+  `9` = dexp(x, 1/9),
+  `12` = dexp(x, 1/12),
+  `15` = dexp(x, 1/15),
+  `18` = dexp(x, 1/18)
+) |> 
+  pivot_longer(- x) |> 
+  mutate(
+    `Mean waiting time (weeks)` = factor(
+      name, 
+      levels = c("6", "7.12", "9", "12", "15", "18"),
+      labels = c(
+        "6 (5% > 18 weeks)", 
+        "7.12 (8% > 18 weeks)",
+        "9 (14% > 18 weeks)",
+        "12 (23% > 18 weeks)", 
+        "15 (31% > 18 weeks)", 
+        "18 (37% > 18 weeks)"
+      )
+    )
+  )
+
+ggplot(distributions_df, aes(x = x), group = `Mean waiting time (weeks)`) + 
+  scale_color_viridis_d(direction = -1) +
+  scale_fill_viridis_d(direction = -1) +
+  scale_y_continuous(labels = scales::label_percent()) +
+  geom_line(aes(y = value, colour = `Mean waiting time (weeks)`), linewidth = 1) +
+  geom_area(aes(y = value, fill = `Mean waiting time (weeks)`), alpha = 0.1, position = 'identity') +
+  geom_vline(xintercept=18, colour = "coral")+
+  annotate("text", x=18, y=0.075, hjust=-0.2,label="18 weeks",  colour = "coral")+
+  theme_minimal() +
+  theme(legend.position = c(0.80, 0.5),
+        legend.background = element_rect(fill = "white", color = "grey")) +
+  labs(
+    title = "Distribution of waiting times by mean wait", 
+    x = "Weeks",
+    y = "Proportion of waiting list"
+  )
+```
+:::
+
+::::
+
+
+
+
+
+## Example:
+
+```{r}
+#| label: example_use
+library(NHSRwaitinglist)
+
+# simulate a waiting list
+waiting_list <- wl_simulator(
+  start_date = "2020-01-01",
+  end_date = "2024-03-31",
+  demand = 10, # simulating 10 patient arrivals per week
+  capacity = 10.2 # simulating 10.2 patients being treated per week
+)
+
+# compute some waiting list statistics
+wl_stats(
+  waiting_list = waiting_list,
+  target_wait = 18 # standard NHS 18wk target
+  )
+```
+
+
+## Experience building it:
+
+:::: {.columns}
+
+::: {.incremental}
+
+::: {.column width="48%"}
+
+
++ GitHub:
+  + Issues
+  + Pull-request -> forked workflow
+  + Actions
+
++ Writing unit tests
+  + ChatGPT (for better or worse)
+  + `codecov`
+  
+:::
+
+
+::: {.column width="48%"} 
+
++ `usethis`
+  + Functions for many things  you need
+
++ `pkgdown`
+  + Easy website
+
++ Code/development style:
+  + Decide on standard
+  + Linters
+
++ CRAN release is a lot of work
+
+:::
+
+:::
+
+::::
