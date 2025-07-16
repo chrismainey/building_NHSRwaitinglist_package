@@ -11,7 +11,7 @@ logo:
   # You'll have to update this section with the correct file names
   images:
     nhsr-logo:
-      path:  https://raw.githubusercontent.com/nhs-r-community/assets/refs/heads/main/logo/nhsr-logo.svg
+      path:  nhsr-logo.svg
       alt: NHS-R Community logo
   small: nhsr-logo
   medium: nhsr-logo
