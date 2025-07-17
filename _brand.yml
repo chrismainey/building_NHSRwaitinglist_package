@@ -92,12 +92,12 @@ typography:
 
 
   base:
-    family: "Arial, sans-serif"
+    family: "Open Sans, sans-serif"
     line-height: 1.5
     size: 2.2rem
 
   headings:
-    family: "Arial, sans-serif"
+    family: " Open Sans, sans-serif"
     weight: 700
     line-height: 1.25
     color: blue

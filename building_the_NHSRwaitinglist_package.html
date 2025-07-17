@@ -94,7 +94,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="building_the_NHSRwaitinglist_package_files/libs/revealjs/dist/theme/quarto-26531897802a27b9e19bdd89c57aed26.css">
+  <link rel="stylesheet" href="building_the_NHSRwaitinglist_package_files/libs/revealjs/dist/theme/quarto-cd7a40cafe33a0468c32f8432d598325.css">
   <link href="building_the_NHSRwaitinglist_package_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="building_the_NHSRwaitinglist_package_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="building_the_NHSRwaitinglist_package_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -199,10 +199,10 @@
 
 <section class="slide level2">
 
-<section>
+<section style="background-image: url('./assets/img/leone-venter-mTkXSSScrzw-unsplash.jpg'); background-size: cover;">
 <center>
 <br>
-<h1>
+<h1 style="color: black;">
 Building the NHSRwaitinglist package
 </h1>
 <br>
@@ -433,12 +433,12 @@ Email: <a href="mailto:c.mainey1@nhs.net">c.mainey1@nhs.net</a>
 <span id="cb7-14"><a href=""></a>  <span class="at">target_wait =</span> <span class="dv">18</span> <span class="co"># standard NHS 18wk target</span></span>
 <span id="cb7-15"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  mean_demand mean_capacity      load load_too_big count_demand queue_size
-1    9.825274      10.06308 0.9763684        FALSE         2177         11
+<pre><code>  mean_demand mean_capacity     load load_too_big count_demand queue_size
+1    10.16377      10.10295 1.006019         TRUE         2252         50
   target_queue_size queue_too_big mean_wait cv_arrival cv_removal
-1          44.21373         FALSE  2.545455   1.140232  0.7036234
-  target_capacity relief_capacity  pressure
-1        10.02474              NA 0.2828283</code></pre>
+1          45.73694         FALSE     18.28   1.153544  0.6910619
+  target_capacity relief_capacity pressure
+1        10.36468              NA 2.031111</code></pre>
 </div>
 </div>
 </section>
@@ -446,36 +446,32 @@ Email: <a href="mailto:c.mainey1@nhs.net">c.mainey1@nhs.net</a>
 <h2>Experience building it:</h2>
 <div class="columns">
 <div class="column" style="width:48%;">
-<ul>
-<li class="fragment">GitHub:
+<h3 id="github">GitHub:</h3>
 <ul>
 <li class="fragment">Issues</li>
 <li class="fragment">Pull-request -&gt; forked workflow</li>
 <li class="fragment">Actions</li>
-</ul></li>
-<li class="fragment">Writing unit tests
+</ul>
+<h3 id="writing-unit-tests">Writing unit tests</h3>
 <ul>
 <li class="fragment">ChatGPT (for better or worse)</li>
 <li class="fragment"><code>codecov</code></li>
-</ul></li>
 </ul>
 </div><div class="column" style="width:48%;">
-<ul>
-<li class="fragment"><code>usethis</code>
+<h3 id="usethis"><code>usethis</code></h3>
 <ul>
 <li class="fragment">Functions for many things you need</li>
-</ul></li>
-<li class="fragment"><code>pkgdown</code>
+</ul>
+<h3 id="pkgdown"><code>pkgdown</code></h3>
 <ul>
 <li class="fragment">Easy website</li>
-</ul></li>
-<li class="fragment">Code/development style:
+</ul>
+<h3 id="codedevelopment-style">Code/development style:</h3>
 <ul>
 <li class="fragment">Decide on standard</li>
 <li class="fragment">Linters</li>
-</ul></li>
-<li class="fragment">CRAN release is a lot of work</li>
 </ul>
+<h3 id="cran-release-is-a-lot-of-work">CRAN release is a lot of work</h3>
 </div></div>
 
 </section>

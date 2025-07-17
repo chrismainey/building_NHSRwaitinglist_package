@@ -24,9 +24,9 @@ execute:
 library(tidyverse)
 ```
 
-<section>
+<section style="background-image: url('./assets/img/leone-venter-mTkXSSScrzw-unsplash.jpg'); background-size: cover;">
   <center><br>
-  <h1>Building the NHSRwaitinglist package</h1>
+  <h1 style="color: black;">Building the NHSRwaitinglist package</h1>
   <br>
   <p>Chris Mainey</p>
   <p>Email: <a href="mailto:c.mainey1@nhs.net">c.mainey1@nhs.net</a></p>
@@ -372,31 +372,31 @@ wl_stats(
 ::: {.column width="48%"}
 
 
-+ GitHub:
-  + Issues
-  + Pull-request -> forked workflow
-  + Actions
+### GitHub:
++ Issues
++ Pull-request -> forked workflow
++ Actions
 
-+ Writing unit tests
-  + ChatGPT (for better or worse)
-  + `codecov`
+### Writing unit tests
++ ChatGPT (for better or worse)
++ `codecov`
   
 :::
 
 
 ::: {.column width="48%"} 
 
-+ `usethis`
-  + Functions for many things  you need
+### `usethis`
++ Functions for many things  you need
 
-+ `pkgdown`
-  + Easy website
+### `pkgdown`
++ Easy website
 
-+ Code/development style:
-  + Decide on standard
-  + Linters
+### Code/development style:
++ Decide on standard
++ Linters
 
-+ CRAN release is a lot of work
+### CRAN release is a lot of work
 
 :::
 
